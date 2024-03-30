@@ -10,9 +10,9 @@ H2 Database Provides a fast in-memory database that supports JDBC API and R2DBC 
 Spring Boot Actuator Supports built in endpoints that let you monitor and manage your application - such as application health, metrics, sessions, etc.
 
 #Features Support
+- [X] Authorize user with basic authentication
 - [ ] Sending and receiving messages in the chat room.
 - [ ] Persists the messages in database table
-- [ ] Authorize user with basic authentication
 - [ ] Deletion of messages by clients.
 - [ ] get chat history of chat
 
