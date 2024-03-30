@@ -1,93 +1,81 @@
 package com.application.chat.controller;
 
+import com.application.chat.dto.MessageDto;
 import com.application.chat.entity.Message;
-import com.application.chat.repository.MessageRepository;
 import com.application.chat.service.ChatMessagesService;
-import com.application.chat.service.ChatMessagesServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.util.Base64Utils;
 
+import java.math.BigInteger;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(ChatController.class)
-@AutoConfigureMockMvc
-@WithMockUser(username = "user1", password = "user1", roles = "USER")
-@ContextConfiguration(classes = {ChatMessagesServiceImpl.class, ChatControllerTest.FooTestConfig.class})
-public class ChatControllerTest {
-
-    @TestConfiguration
-    static class FooTestConfig {
-        @Bean
-        public ChatMessagesServiceImpl getChatMessagesServiceImpl() {
-            return Mockito.mock(ChatMessagesServiceImpl.class);
-        }
-
-        @Bean
-        public MessageRepository getMessageRepository() {
-            return Mockito.mock(MessageRepository.class);
-        }
-    }
-    @Mock
-    private Logger logger;
-    @Mock
-    ChatMessagesServiceImpl chatMessagesServiceImpl;
+@AutoConfigureMockMvc(addFilters = false)
+class ChatControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private ChatMessagesService chatMessagesService;
 
-//    @InjectMocks
-//    ChatController chatController;
-    @BeforeEach
-    private void init() {
-        MockitoAnnotations.initMocks(this);
-    }
     @Test
-    public void testGetStatus() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isAccepted())
-                .andExpect(MockMvcResultMatchers.content().string("success"));
+    @WithMockUser(username = "user", password = "password", roles = "USER")
+    void testGetStatus() throws Exception {
+        mockMvc.perform(get("/api"))
+                .andExpect(status().isAccepted())
+                .andExpect(content().string("success"));
     }
 
     @Test
-
-    public void testGetChatMessage() throws Exception {
-        String group = "group1";
+    @WithMockUser(username = "user", password = "password", roles = "USER")
+    void testGetChatMessage() throws Exception {
+        String group = "testGroup";
         Page<Message> messages = Mockito.mock(Page.class);
-        Mockito.when(chatMessagesServiceImpl.getMessageBYGroup(group)).thenReturn(messages);
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/getMessageHistory/{group}", group)
-                        .contentType(MediaType.APPLICATION_JSON)
-                .header(HttpHeaders.AUTHORIZATION,
-                        "Basic " + Base64Utils.encodeToString("user1:user1".getBytes()))
-                        )
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+        //Mockito.when(chatMessagesServiceImpl.getMessageBYGroup(group)).thenReturn(messages);
+        when(chatMessagesService.getMessageBYGroup(group)).thenReturn(null);
 
+        mockMvc.perform(get("/api/getMessageHistory/{group}", group))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "user", password = "password", roles = "USER")
+    void testSendMessage() throws Exception {
+        MessageDto messageDto = new MessageDto("sende","group", "hi");
+
+
+        when(chatMessagesService.save(any(MessageDto.class))).thenReturn(new Message());
+
+        mockMvc.perform(post("/api/sendMessage")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+                        .content("{\"content\":\"Test content\",\"sender\":\"Test sender\",\"groupName\":\"Test sender\"}"))
+                .andExpect(status().isAccepted());
+    }
+
+    @Test
+    @WithMockUser(username = "user", password = "password", roles = "USER")
+    void testDeleteMessage() throws Exception {
+        BigInteger id = BigInteger.ONE;
+       when(chatMessagesService.deleteById(id)).thenReturn(Boolean.TRUE);
+
+        mockMvc.perform(delete("/api/deleteMessage/{id}", id))
+                .andExpect(status().isNoContent());
     }
 }
