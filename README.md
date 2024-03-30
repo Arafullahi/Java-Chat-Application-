@@ -11,6 +11,7 @@ Spring Boot Actuator Supports built in endpoints that let you monitor and manage
 
 #Features Support
 - [X] Authorize user with basic authentication
+- [X} Rest end point for th send and delete mesage 
 - [ ] Sending and receiving messages in the chat room.
 - [ ] Persists the messages in database table
 - [ ] Deletion of messages by clients.
