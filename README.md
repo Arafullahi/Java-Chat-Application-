@@ -11,7 +11,7 @@ Spring Boot Actuator Supports built in endpoints that let you monitor and manage
 
 #Features Support
 - [X] Authorize user with basic authentication
-- [X} Rest end point for th send and delete mesage 
+- [X] Rest end point for th send and delete mesage 
 - [X] Sending and receiving messages in the chat room.
 - [X] Persists the messages in database table
 - [X] Deletion of messages by clients.
@@ -32,11 +32,17 @@ Spring Boot Actuator Supports built in endpoints that let you monitor and manage
 
 
 #PostMan collection are available in Postman workspace
+
 	Websocket
 		https://www.postman.com/mutivenodrapp/workspace/chatapplication/collection/66090ea384b58c997bc16a12?action=share&creator=27990434
+
+  
 	Rest API
 		https://www.postman.com/mutivenodrapp/workspace/chatapplication/collection/27990434-7ab09fca-9cde-4d37-9dcd-7e159bcbdd9f?action=share&creator=27990434
-		
+Fork the post man collection from my workspace in postman desktop
+After running the application check the health api 
+then user the rest or socket api
+
 
 
 
