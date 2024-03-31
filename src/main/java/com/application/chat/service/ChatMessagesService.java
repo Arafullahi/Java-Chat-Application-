@@ -14,7 +14,7 @@ public interface ChatMessagesService {
     final Pageable pageableWithSortByGroup = PageRequest.of(0, 2,
             Sort.by("createdAt"));
 
-    Message save(MessageDto message);
+    Message save(Message message);
 
     Boolean deleteById(BigInteger messageId) throws CustomNotFoundException;
 

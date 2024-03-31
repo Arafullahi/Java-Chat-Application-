@@ -4,8 +4,7 @@ import com.application.chat.dto.MessageDto;
 import com.application.chat.entity.Message;
 import com.application.chat.exception.CustomNotFoundException;
 import com.application.chat.repository.MessageRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -15,21 +14,16 @@ import java.math.BigInteger;
 
 
 @Service
+@Slf4j
 public class ChatMessagesServiceImpl implements ChatMessagesService {
 
-    private final Logger log = LoggerFactory.getLogger(ChatMessagesServiceImpl.class);
-
     @Autowired
-    MessageRepository messageRepository;
+    private MessageRepository messageRepository;
 
     @Override
-    public Message save(MessageDto messageDto) {
-        log.info("saving message:{}",messageDto);
-        Message message = Message.builder()
-                .sender(messageDto.sender())
-                .groupName(messageDto.groupName())
-                .content(messageDto.content())
-                .build();
+    public Message save(Message message) {
+        log.info("saving message:{}",message);
+
         message = messageRepository.save(message);
         log.info(" message saved:{}",message);
         return  message;
