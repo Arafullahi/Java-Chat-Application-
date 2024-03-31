@@ -36,6 +36,7 @@ public class ChatController {
 
     @PostMapping("/sendMessage")
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @Deprecated
     public ResponseEntity<Object> sendMessage(@RequestBody MessageDto messageDto) {
         log.info("sendMessage called by sender: {}",messageDto);
         Message message = Message.builder()
@@ -48,6 +49,7 @@ public class ChatController {
 
     @DeleteMapping("/deleteMessage/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Deprecated
     public ResponseEntity<Object> deleteMessage(@PathVariable BigInteger id) throws CustomNotFoundException {
         log.info("delteMessage called by id: {}",id);
         chatMessagesService.deleteById(id);

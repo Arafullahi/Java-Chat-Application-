@@ -18,6 +18,27 @@ Spring Boot Actuator Supports built in endpoints that let you monitor and manage
 - [X] get chat history of chat
 - [X] Websocket chat Supported with public subisbiction topic.
 
+#Setting up
+- Clone the project
+- Open it on IDE and build the project using maven
+- configuared with h2 database no need to change configration
+#Running as docker
+- Run mvn clean install
+-  docker build --tag=java-chat:latest .  
+- - then run  docker run -p8080:8080 java-chat:latest
+
+#Running as typical Application
+- Directly run the ChatApplication.java or run mvn spring-boot:run command 
+
+
+#PostMan collection are available in Postman workspace
+	Websocket
+		https://www.postman.com/mutivenodrapp/workspace/chatapplication/collection/66090ea384b58c997bc16a12?action=share&creator=27990434
+	Rest API
+		https://www.postman.com/mutivenodrapp/workspace/chatapplication/collection/27990434-7ab09fca-9cde-4d37-9dcd-7e159bcbdd9f?action=share&creator=27990434
+		
+
+
 
 
 
