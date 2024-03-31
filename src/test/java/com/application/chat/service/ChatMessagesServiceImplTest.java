@@ -94,7 +94,7 @@ class ChatMessagesServiceImplTest {
 
         when(messageRepository.findByGroupName(eq(group), any())).thenReturn(expectedPage);
 
-        Page<Message> result = chatMessagesService.getMessageBYGroup(group);
+        Page<Message> result = chatMessagesService.getMessageBYGroup(group, null);
 
         assertNotNull(result);
         assertEquals(expectedPage, result);

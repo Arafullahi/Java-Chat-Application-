@@ -48,7 +48,7 @@ class ChatControllerTest {
         String group = "testGroup";
         Page<Message> messages = Mockito.mock(Page.class);
         //Mockito.when(chatMessagesServiceImpl.getMessageBYGroup(group)).thenReturn(messages);
-        when(chatMessagesService.getMessageBYGroup(group)).thenReturn(null);
+        when(chatMessagesService.getMessageBYGroup(any(), any())).thenReturn(null);
 
         mockMvc.perform(get("/api/getMessageHistory/{group}", group))
                 .andExpect(status().isOk());

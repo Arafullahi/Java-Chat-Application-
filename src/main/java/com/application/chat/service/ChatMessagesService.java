@@ -18,5 +18,5 @@ public interface ChatMessagesService {
 
     Boolean deleteById(BigInteger messageId) throws CustomNotFoundException;
 
-    Page<Message> getMessageBYGroup(String group);
+    Page<Message> getMessageBYGroup(String group, Pageable pageable);
 }
