@@ -33,6 +33,10 @@ Spring Boot Actuator Supports built in endpoints that let you monitor and manage
 
 #PostMan collection are available in Postman workspace
 
+	##Users are hardcoded details given below
+ 	user1:user1
+  	user2:user2
+
 	Websocket
 		https://www.postman.com/mutivenodrapp/workspace/chatapplication/collection/66090ea384b58c997bc16a12?action=share&creator=27990434
 
