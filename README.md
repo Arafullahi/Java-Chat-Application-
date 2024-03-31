@@ -17,18 +17,18 @@ Spring Boot Actuator Supports built in endpoints that let you monitor and manage
 - [X] Deletion of messages by clients.
 - [X] get chat history of chat
 - [X] Websocket chat Supported with public subisbiction topic.
+- [X] Github workflow addrd for CI/CD
 
 #Setting up
 - Clone the project
 - Open it on IDE and build the project using maven
 - configuared with h2 database no need to change configration
-#Running as docker
-- Run mvn clean install
--  docker build --tag=java-chat:latest .  
-- - then run  docker run -p8080:8080 java-chat:latest
+##Running as docker
+-  run `docker build --tag=java-chat:latest .`  
+-  then run  `docker run -p8080:8080 java-chat:latest`
 
-#Running as typical Application
-- Directly run the ChatApplication.java or run mvn spring-boot:run command 
+#$Running as typical Application
+- Directly run the `ChatApplication.java` or run `mvn spring-boot:run` command 
 
 
 #PostMan collection are available in Postman workspace
