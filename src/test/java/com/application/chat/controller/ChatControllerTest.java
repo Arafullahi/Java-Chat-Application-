@@ -60,7 +60,7 @@ class ChatControllerTest {
         MessageDto messageDto = new MessageDto("sende","group", "hi");
 
 
-        when(chatMessagesService.save(any(MessageDto.class))).thenReturn(new Message());
+        when(chatMessagesService.save(any(Message.class))).thenReturn(new Message());
 
         mockMvc.perform(post("/api/sendMessage")
                         .contentType(MediaType.APPLICATION_JSON)

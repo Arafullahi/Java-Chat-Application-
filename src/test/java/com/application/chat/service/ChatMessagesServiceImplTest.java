@@ -49,7 +49,7 @@ class ChatMessagesServiceImplTest {
 
         when(messageRepository.save(any(Message.class))).thenReturn(savedMessage);
 
-        Message result = chatMessagesService.save(messageDto);
+        Message result = chatMessagesService.save(savedMessage);
 
         assertNotNull(result);
         assertEquals(BigInteger.ONE, result.getId());

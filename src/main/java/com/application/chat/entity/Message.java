@@ -1,5 +1,6 @@
 package com.application.chat.entity;
 
+import com.application.chat.dto.ActionType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,6 +24,9 @@ public class Message {
 
     @Column(name = "sender")
     private String sender;
+
+    @Column(name = "type")
+    private ActionType type;
 
     @Column(name = "content")
     private String content;
