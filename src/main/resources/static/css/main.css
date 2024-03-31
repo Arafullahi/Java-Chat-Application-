@@ -90,7 +90,6 @@ button {
 }
 button.default {
     background-color: transparent;
-    color: #ffffff;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -212,13 +211,11 @@ button.accent {
 }
 
 #chat-page .chat-message span {
-    color: #ffffff;
     font-weight: 600;
 }
 
 #chat-page .chat-message p {
     /*color: #43464b;*/
-    color:#ffffff;
 }
 
 #messageForm .input-group input {
@@ -236,13 +233,13 @@ button.accent {
 .chat-header {
     text-align: center;
     padding: 15px;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid ;
 }
 
 .chat-header h2 {
     margin: 0;
     font-weight: 500;
-    color:#ffffff;
+    color:;
 }
 
 .connecting {
