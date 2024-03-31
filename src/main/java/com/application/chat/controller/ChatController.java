@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +31,15 @@ public class ChatController {
     }
     @GetMapping("/getMessageHistory/{group}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getChatMessage(@PathVariable("group") String group) {
+    public ResponseEntity<Object> getChatMessage(
+            @PathVariable("group") String group,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
         log.info("getChatMessage called by group: {}",group);
 
-        return ResponseEntity.ok().body(chatMessagesService.getMessageBYGroup(group));
+        Pageable pagingSort = PageRequest.of(page, size, Sort.by("createdAt"));
+        return ResponseEntity.ok().body(chatMessagesService.getMessageBYGroup(group, pagingSort));
     }
 
     @PostMapping("/sendMessage")
@@ -43,6 +51,7 @@ public class ChatController {
                 .sender(messageDto.sender())
                 .groupName(messageDto.groupName())
                 .content(messageDto.content())
+                .type(messageDto.type())
                 .build();
         return ResponseEntity.accepted().body(chatMessagesService.save(message));
     }

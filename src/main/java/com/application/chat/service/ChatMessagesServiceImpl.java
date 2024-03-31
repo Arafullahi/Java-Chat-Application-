@@ -7,6 +7,7 @@ import com.application.chat.repository.MessageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -42,9 +43,9 @@ public class ChatMessagesServiceImpl implements ChatMessagesService {
     }
 
     @Override
-    public Page<Message> getMessageBYGroup(String group) {
+    public Page<Message> getMessageBYGroup(String group, Pageable pageable) {
         log.info("getMessageBYGroup group:{}",group);
-        return messageRepository.findByGroupName(group,pageableWithSortByGroup);
+        return messageRepository.findByGroupName(group,pageable);
     }
 
 

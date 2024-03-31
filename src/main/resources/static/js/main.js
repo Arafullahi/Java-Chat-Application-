@@ -31,23 +31,17 @@ var colors = [
     "#d611c6",
 ];
 
-function connect(event) {
-    username = document.querySelector("#name").value.trim();
-    password = document.querySelector("#password").value;
-    if (username) {
-        var socket = new SockJS("/websocket");
-        stompClient = Stomp.over(socket);
-        stompClient.connect({
-            login: username,
-            password: password
-        }, onConnected, onError);
-    }
-    event.preventDefault();
+function connect() {
+
+    var socket = new SockJS("/websocket");
+   stompClient = Stomp.over(socket);
+   stompClient.connect({
+
+   }, onConnected, onError);
+
 }
 
 function onConnected() {
-    usernamePage.classList.add("hidden");
-    chatPage.classList.remove("hidden");
     // Subscribe to the Public Topic
     stompClient.subscribe("/topic/chat", onMessageReceived);
 
@@ -60,7 +54,7 @@ function onConnected() {
         })
     );
 
-    connectingElement.classList.add("hidden");
+
 }
 
 function onError(error) {
@@ -199,5 +193,6 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-usernameForm.addEventListener("submit", connect, true);
+
 messageForm.addEventListener("submit", send, true);
+connect();
