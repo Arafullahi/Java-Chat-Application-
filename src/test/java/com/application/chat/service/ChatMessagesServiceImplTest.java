@@ -1,5 +1,6 @@
 package com.application.chat.service;
 
+import com.application.chat.dto.ActionType;
 import com.application.chat.dto.MessageDto;
 import com.application.chat.entity.Message;
 import com.application.chat.exception.CustomNotFoundException;
@@ -38,7 +39,7 @@ class ChatMessagesServiceImplTest {
 
     @Test
     void testSave() {
-        MessageDto messageDto = new MessageDto("Test sender", "Test group","Test content");
+        MessageDto messageDto = new MessageDto("Test sender", "Test group","Test content", ActionType.CHAT);
 
 
         Message savedMessage = new Message();

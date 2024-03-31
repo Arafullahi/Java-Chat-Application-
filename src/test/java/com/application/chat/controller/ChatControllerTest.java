@@ -1,5 +1,6 @@
 package com.application.chat.controller;
 
+import com.application.chat.dto.ActionType;
 import com.application.chat.dto.MessageDto;
 import com.application.chat.entity.Message;
 import com.application.chat.service.ChatMessagesService;
@@ -57,7 +58,7 @@ class ChatControllerTest {
     @Test
     @WithMockUser(username = "user", password = "password", roles = "USER")
     void testSendMessage() throws Exception {
-        MessageDto messageDto = new MessageDto("sende","group", "hi");
+        MessageDto messageDto = new MessageDto("sende","group", "hi", ActionType.CHAT);
 
 
         when(chatMessagesService.save(any(Message.class))).thenReturn(new Message());
